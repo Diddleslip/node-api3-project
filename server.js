@@ -11,10 +11,7 @@ server.use("/api/users", morgan("dev"), userRouter);
 server.use(morgan("dev"));
 
 server.get("/", (req, res) => {
-  res.send(`
-      <h1>API HOME</h1>
-      <p>Welcome to the API!</p>
-  `)
+  res.status(200).json({ enviroment: process.env.NODE_ENV });
 })
 
 //custom middleware
