@@ -28,7 +28,7 @@ router.post('/', validateUser, (req, res) => {
   })
 });
 
-router.post('/:id/posts', (req, res) => {
+router.post('/:id/posts', validatePost, (req, res) => {
   const user_id = req.params.id;
   const {text} = req.body;
 
@@ -142,7 +142,16 @@ function validateUser(req, res, next) {
 }
 
 function validatePost(req, res, next) {
-  // do your magic!
+  const post = req.body;
+  console.log(post, "THIS IS USER!");
+
+  if(post.text === "") {
+    res.status(404).json({ message: "Missing post data" });
+  } else if (!post.text) {
+    res.status(400).json({ message: "Missing post Object" });
+  } else {
+    next();
+  }
 }
 
 module.exports = router;
